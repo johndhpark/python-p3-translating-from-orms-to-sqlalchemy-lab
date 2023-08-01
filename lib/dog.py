@@ -1,22 +1,35 @@
 from models import Dog
 
-def create_table(base):
-    pass
+def create_table(base, engine):
+    base.metadata.create_all(engine)
 
 def save(session, dog):
-    pass
+    session.add(dog)
+    session.commit()
 
 def get_all(session):
-    pass
+    query = session.query(Dog)
+
+    return query
 
 def find_by_name(session, name):
-    pass
+    query = session.query(Dog).filter(Dog.name == name)
+    matching_dog = query.first()
+
+    return matching_dog
 
 def find_by_id(session, id):
-    pass
+    query = session.query(Dog).filter(Dog.id == id)
+    matching_dog = query.first()
+
+    return matching_dog
 
 def find_by_name_and_breed(session, name, breed):
-    pass
+    query = session.query(Dog).filter(Dog.name == name, Dog.breed == breed)
+    matching_dog = query.first()
+
+    return matching_dog
 
 def update_breed(session, dog, breed):
-    pass
+    dog.breed = breed
+    session.commit()
